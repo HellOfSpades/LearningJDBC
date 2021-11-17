@@ -13,11 +13,10 @@ public class JDBCExecuter {
 
         try{
             Connection connection = dcm.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM CUSTOMER");
-            while(resultSet.next()){
-                System.out.println(resultSet.getInt(1));
-            }
+            CustomerDAO customerDAO = new CustomerDAO(connection);
+            OrderDAO orderDAO = new OrderDAO(connection);
+            Order order = orderDAO.findById(1);
+            System.out.println(order);
 
         }catch (SQLException e){
             e.printStackTrace();
